@@ -1,37 +1,22 @@
 package com.openwebinars.filmapp.view.newfilms
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.openwebinars.filmapp.R
+import com.openwebinars.filmapp.base.Base
 import com.openwebinars.filmapp.databinding.FragmentNewFilmsBinding
-import com.openwebinars.filmapp.view.detail.DetailFragment.Companion.EXTRA
 import com.openwebinars.filmapp.view.detail.DetailActivity
+import com.openwebinars.filmapp.view.detail.DetailFragment.Companion.EXTRA
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NewFilmsFragment : Fragment() {
+class NewFilmsFragment : Base.BaseFragment<FragmentNewFilmsBinding>(R.layout.fragment_new_films) {
 
-    private var _binding: FragmentNewFilmsBinding? = null
-    private val binding get() = _binding!!
+    private val newsViewModel: NewsViewModel by activityViewModels()
 
-    private val newsViewModel : NewsViewModel by activityViewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentNewFilmsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun init() {
         newsViewModel.getNews()
         newsViewModel.newsLiveData.observe(viewLifecycleOwner) { films ->
             with(binding.recyclerNews) {
@@ -43,8 +28,11 @@ class NewFilmsFragment : Fragment() {
                 }
             }
         }
+
         newsViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.pbLoading.isVisible = isLoading
         }
     }
+
+    override fun getViewBinding() = FragmentNewFilmsBinding.inflate(layoutInflater)
 }

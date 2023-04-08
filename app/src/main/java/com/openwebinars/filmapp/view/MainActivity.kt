@@ -1,29 +1,21 @@
 package com.openwebinars.filmapp.view
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.openwebinars.filmapp.R
+import com.openwebinars.filmapp.base.Base
 import com.openwebinars.filmapp.databinding.ActivityMainBinding
 import com.openwebinars.filmapp.view.fav.FavsFragment
 import com.openwebinars.filmapp.view.newfilms.NewFilmsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
+class MainActivity : Base.BaseActivity<ActivityMainBinding>() {
 
     private val newsFragment = NewFilmsFragment()
     private val favsFragment = FavsFragment()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+    override fun init() {
         setFragment(newsFragment)
-
         setViewBottomNavigationListener()
     }
 
@@ -42,4 +34,6 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
+
+    override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
 }

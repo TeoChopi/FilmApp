@@ -1,34 +1,19 @@
 package com.openwebinars.filmapp.view.fav
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.openwebinars.filmapp.R
+import com.openwebinars.filmapp.base.Base
 import com.openwebinars.filmapp.databinding.FragmentFavsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FavsFragment : Fragment() {
-
-    private var _binding: FragmentFavsBinding? = null
-    private val binding get() = _binding!!
+class FavsFragment : Base.BaseFragment<FragmentFavsBinding>(R.layout.fragment_favs) {
 
     private val favsViewModel: FavsViewModel by activityViewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentFavsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun init() {
         favsViewModel.onViewCreated()
         favsViewModel.favsLiveData.observe(viewLifecycleOwner) { films ->
             with(binding.recyclerFavs) {
@@ -36,8 +21,11 @@ class FavsFragment : Fragment() {
                 adapter = FavsAdapter(films)
             }
         }
+
         favsViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.pbLoading.isVisible = isLoading
         }
     }
+
+    override fun getViewBinding() = FragmentFavsBinding.inflate(layoutInflater)
 }
