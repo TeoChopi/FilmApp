@@ -5,14 +5,15 @@ import com.openwebinars.filmapp.data.api.FilmRemote
 import com.openwebinars.filmapp.data.api.RetrofitBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class FilmsService {
-
-    private val retrofit = RetrofitBuilder.build()
+class FilmsService @Inject constructor(
+    private val api: FilmApiClient
+) {
 
     suspend fun get() : List<FilmRemote> {
         return withContext(Dispatchers.IO) {
-            val response = retrofit.create(FilmApiClient::class.java).getNewFilms()
+            val response = api.getNewFilms()
             response.body() ?: emptyList()
         }
     }

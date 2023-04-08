@@ -1,10 +1,11 @@
 package com.openwebinars.filmapp.model
 
 import com.openwebinars.filmapp.data.api.FilmRemote
+import javax.inject.Inject
 
-class NewFilmsRepository {
-
-    private val api = FilmsService()
+class NewFilmsRepository @Inject constructor(
+    private val api: FilmsService
+) {
 
     suspend fun get(): List<Film>  = api.get().toFilms()
 

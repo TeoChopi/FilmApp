@@ -6,20 +6,4 @@ import com.openwebinars.filmapp.data.database.FilmDb
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class FilmApp : Application() {
-
-    companion object {
-        lateinit var instance: FilmApp
-            private set
-    }
-
-    lateinit var room : FilmDb
-
-    override fun onCreate() {
-        super.onCreate()
-        room = Room
-            .databaseBuilder(this, FilmDb::class.java, "films")
-            .build()
-        instance = this
-    }
-}
+class FilmApp : Application()

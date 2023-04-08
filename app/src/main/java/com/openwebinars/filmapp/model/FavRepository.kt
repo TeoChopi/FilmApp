@@ -1,12 +1,12 @@
 package com.openwebinars.filmapp.model
 
-import com.openwebinars.filmapp.FilmApp
 import com.openwebinars.filmapp.data.database.FilmDao
 import com.openwebinars.filmapp.data.database.FilmEntity
+import javax.inject.Inject
 
-class FavoritesRepository {
-
-    private val database: FilmDao = FilmApp.instance.room.filmDao()
+class FavRepository @Inject constructor(
+    private val database: FilmDao
+) {
 
     suspend fun get(): List<Film> = database.get().toFilms()
 

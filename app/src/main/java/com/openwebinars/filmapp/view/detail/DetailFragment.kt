@@ -65,13 +65,13 @@ class DetailFragment : Fragment() {
 
     private fun showIsFavorite(film: Film) {
         binding.ivFilm.setImageDrawable(getImageSrc(film.image, context))
-        detailViewModel.isFavorite.observe(viewLifecycleOwner, { isFavorite ->
+        detailViewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
             if (isFavorite) {
                 binding.ivFav.setColorFilter(Color.parseColor("#FFDAA95E"))
             } else {
                 binding.ivFav.setColorFilter(Color.parseColor("#000000"))
             }
-        })
+        }
     }
 
     private fun getFilmFromArguments(): Film? =

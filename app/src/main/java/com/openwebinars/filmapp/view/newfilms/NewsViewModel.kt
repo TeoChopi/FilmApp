@@ -7,13 +7,15 @@ import com.openwebinars.filmapp.model.Film
 import com.openwebinars.filmapp.model.NewFilmsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class NewsViewModel: ViewModel() {
+class NewsViewModel @Inject constructor(
+    private val newFilmsRepository: NewFilmsRepository
+) : ViewModel() {
 
     val newsLiveData = MutableLiveData<List<Film>>()
     val isLoading = MutableLiveData<Boolean>()
-    private val newFilmsRepository: NewFilmsRepository = NewFilmsRepository()
 
     fun getNews() {
         viewModelScope.launch {
