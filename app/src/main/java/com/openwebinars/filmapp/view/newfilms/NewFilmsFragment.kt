@@ -1,4 +1,4 @@
-package com.openwebinars.filmapp.view
+package com.openwebinars.filmapp.view.newfilms
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,9 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.openwebinars.filmapp.databinding.FragmentNewFilmsBinding
-import com.openwebinars.filmapp.view.DetailFragment.Companion.EXTRA
-import com.openwebinars.filmapp.viewmodel.NewsViewModel
+import com.openwebinars.filmapp.view.detail.DetailFragment.Companion.EXTRA
+import com.openwebinars.filmapp.view.detail.DetailActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NewFilmsFragment : Fragment() {
 
     private var _binding: FragmentNewFilmsBinding? = null
@@ -34,7 +36,7 @@ class NewFilmsFragment : Fragment() {
         newsViewModel.newsLiveData.observe(viewLifecycleOwner) { films ->
             with(binding.recyclerNews) {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                adapter = FilmsAdapter(films) {
+                adapter = NewFilmsAdapter(films) {
                     val intentDetail = Intent(context, DetailActivity::class.java)
                     intentDetail.putExtra(EXTRA, it)
                     startActivity(intentDetail)

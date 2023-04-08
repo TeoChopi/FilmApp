@@ -1,12 +1,14 @@
-package com.openwebinars.filmapp.viewmodel
+package com.openwebinars.filmapp.view.detail
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.openwebinars.filmapp.model.FavoritesRepository
 import com.openwebinars.filmapp.model.Film
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 
+@HiltViewModel
 class DetailViewModel : ViewModel() {
 
     val isFavorite = MutableLiveData<Boolean>()
