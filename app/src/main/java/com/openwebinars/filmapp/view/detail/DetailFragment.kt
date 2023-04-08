@@ -1,4 +1,4 @@
-package com.openwebinars.filmapp.view
+package com.openwebinars.filmapp.view.detail
 
 import android.content.Context
 import android.content.res.Resources
@@ -12,8 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.openwebinars.filmapp.databinding.FragmentDetailBinding
 import com.openwebinars.filmapp.model.Film
-import com.openwebinars.filmapp.viewmodel.DetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailFragment : Fragment() {
 
     companion object {

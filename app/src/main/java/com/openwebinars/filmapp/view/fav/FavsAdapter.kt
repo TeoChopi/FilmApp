@@ -1,4 +1,4 @@
-package com.openwebinars.filmapp.view
+package com.openwebinars.filmapp.view.fav
 
 import android.content.Context
 import android.content.res.Resources
@@ -11,31 +11,31 @@ import com.openwebinars.filmapp.R
 import com.openwebinars.filmapp.model.Film
 import com.openwebinars.filmapp.databinding.ItemFilmBinding
 
-class FilmsAdapter(
-    private val films: List<Film>,
-    private val onClickFilm: (Film) -> Unit
-) : RecyclerView.Adapter<FilmsAdapter.FilmsViewHolder>() {
+class FavsAdapter(
+    private val films: List<Film>
+) : RecyclerView.Adapter<FavsAdapter.FavsViewHolder>() {
 
-    override fun onBindViewHolder(holder: FilmsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavsViewHolder, position: Int) {
         val item = films[position]
-        holder.bind(item, onClickFilm)
+        holder.bind(item)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return FilmsViewHolder(layoutInflater.inflate(R.layout.item_film, parent, false))
+        return FavsViewHolder(layoutInflater.inflate(R.layout.item_film, parent, false))
     }
 
-    class FilmsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    override fun getItemCount() = films.size
+
+    class FavsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val binding = ItemFilmBinding.bind(view)
 
-        fun bind(item: Film, onClickFilm: (Film) -> Unit) {
+        fun bind(item: Film) {
             binding.tvTitle.text = item.name
             binding.tvDirector.text = item.director
             binding.tvRate.text = item.rate
             binding.ivCover.setImageDrawable(getImageSrc(item.image, itemView.context))
-            binding.cardFilm.setOnClickListener { onClickFilm(item) }
         }
 
         private fun getImageSrc(name: String, context: Context): Drawable {
@@ -47,6 +47,4 @@ class FilmsAdapter(
             return resources.getDrawable(resourceId, null)
         }
     }
-
-    override fun getItemCount() = films.size
 }

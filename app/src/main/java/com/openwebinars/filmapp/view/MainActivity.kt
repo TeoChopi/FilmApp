@@ -5,7 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.openwebinars.filmapp.R
 import com.openwebinars.filmapp.databinding.ActivityMainBinding
+import com.openwebinars.filmapp.view.fav.FavsFragment
+import com.openwebinars.filmapp.view.newfilms.NewFilmsFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
