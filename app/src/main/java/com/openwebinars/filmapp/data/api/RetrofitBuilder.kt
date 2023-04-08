@@ -10,5 +10,4 @@ object RetrofitBuilder {
             .baseUrl("https://jetpack-course-default-rtdb.firebaseio.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
 }
