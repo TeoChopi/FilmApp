@@ -9,6 +9,9 @@ class NewFilmsRepository @Inject constructor(
 
     suspend fun get(): List<Film>  = api.get().toFilms()
 
+    private fun List<FilmRemote>.toFilms(): List<Film> =
+        this.map { it.toFilm() }
+
     private fun FilmRemote.toFilm(): Film =
         Film(
             id = this.id,
@@ -18,7 +21,4 @@ class NewFilmsRepository @Inject constructor(
             image = this.image,
             synopsis = this.synopsis
         )
-
-    private fun List<FilmRemote>.toFilms(): List<Film> =
-        this.map { it.toFilm() }
 }

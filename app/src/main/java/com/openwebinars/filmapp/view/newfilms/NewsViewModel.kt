@@ -20,8 +20,7 @@ class NewsViewModel @Inject constructor(
     fun getNews() {
         viewModelScope.launch {
             isLoading.postValue(true)
-            val news = newFilmsRepository.get()
-            newsLiveData.postValue(news)
+            newsLiveData.postValue(newFilmsRepository.get())
             isLoading.postValue(false)
         }
     }
