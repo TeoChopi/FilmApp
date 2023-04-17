@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import com.openwebinars.filmapp.R
 import com.openwebinars.filmapp.base.Base
 import com.openwebinars.filmapp.databinding.FragmentDetailBinding
@@ -17,21 +18,13 @@ class DetailFragment : Base.BaseFragment<FragmentDetailBinding>(R.layout.fragmen
 
     companion object {
         const val EXTRA = "film"
-        fun newInstance(
-            film: Film
-        ): DetailFragment {
-            val fragment = DetailFragment()
-            val args = Bundle()
-            args.putParcelable(EXTRA, film)
-            fragment.arguments = args
-            return fragment
-        }
     }
 
     private val detailViewModel: DetailViewModel by activityViewModels()
+    private val args: DetailFragmentArgs by navArgs()
 
     override fun init() {
-        val film = getFilmFromArguments()
+        val film = args.film
         showContent(film)
         detailViewModel.onViewCreated(film)
     }
@@ -59,11 +52,6 @@ class DetailFragment : Base.BaseFragment<FragmentDetailBinding>(R.layout.fragmen
             }
         }
     }
-
-    private fun getFilmFromArguments(): Film? =
-        arguments?.let {
-            it.getParcelable(EXTRA) as? Film
-        }
 
     private fun getImageSrc(name: String, context: Context?): Drawable? {
         return context?.let {
